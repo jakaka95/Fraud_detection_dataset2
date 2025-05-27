@@ -1,4 +1,17 @@
 # fraud_detection_app.py
+
+# Add this at the top of your file
+import sys
+import subprocess
+
+# Check and install missing packages
+try:
+    import joblib
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "joblib"])
+    import joblib
+
+
 import streamlit as st
 import pandas as pd
 import numpy as np
