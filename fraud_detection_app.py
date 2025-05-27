@@ -1,12 +1,9 @@
 # fraud_detection_app.py
-
-
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import os
-import joblib
+import pickle  # Remplace joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -22,12 +19,14 @@ plt.rcParams.update({'font.size': 12})
 
 # ----- Utility functions -----
 def save_model(model, model_name):
-    joblib.dump((model, model_name), f"{model_name}.pkl")
+    with open(f"{model_name}.pkl", "wb") as f:
+        pickle.dump((model, model_name), f)
 
 def load_model(model_name):
     path = f"{model_name}.pkl"
     if os.path.exists(path):
-        return joblib.load(path)[0]
+        with open(path, "rb") as f:
+            return pickle.load(f)[0]
     return None
 
 # ----- Streamlit App -----
